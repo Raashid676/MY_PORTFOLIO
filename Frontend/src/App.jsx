@@ -8,7 +8,7 @@ import "./App.css";
 // FastAPI backend
 // ---------------------------------------------------------
 
-const API_BASE_URL = "https://your-portfolio-api.onrender.com";
+const API_BASE_URL = "https://my-portfolio-9ynw.onrender.com";
 
 
 // ---------------------------------------------------------

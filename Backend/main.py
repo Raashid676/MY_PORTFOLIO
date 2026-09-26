@@ -43,12 +43,25 @@ app = FastAPI()
 # CORS
 # =========================================================
 
+# Local development origins
+allowed_origins = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+]
+
+# Production frontend URL.
+# Set FRONTEND_URL on Render after your frontend is deployed.
+frontend_url = os.getenv("FRONTEND_URL")
+if frontend_url:
+    allowed_origins.append(frontend_url.rstrip("/"))
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:3000",
-    ],
+    allow_origins=allowed_origins,
+    # Temporary support for Render's onrender.com frontend URL.
+    # Once FRONTEND_URL is set, you can remove this regex if you want
+    # stricter CORS.
+    allow_origin_regex=r"https://[a-zA-Z0-9-]+\.onrender\.com",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -575,6 +588,11 @@ def home():
         "message": "Resume parsed successfully",
         "candidate": resume.name,
     }
+
+
+@app.get("/healthz")
+def healthz():
+    return {"status": "ok"}
 
 
 @app.get("/resume")
