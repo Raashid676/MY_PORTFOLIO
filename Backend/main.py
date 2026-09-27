@@ -48,9 +48,9 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://localhost:3000",
-        "https://my-portfolio-1-qwtc.onrender.com",
         "https://my-portfolio-nfck.onrender.com"
 
+       
     ],
     allow_credentials=True,
     allow_methods=["*"],
